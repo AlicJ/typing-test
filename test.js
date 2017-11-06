@@ -12,7 +12,8 @@ var generatePassage = function(){
 
 	paraContainer.style.display = "inline-block";
 	textArea.style.display = "inline-block";
-	testPara.innerHTML = "HELLO WORLD";
+	// testPara.innerHTML = "Friends are flowers in the garden of life.";
+	testPara.innerHTML = "F";
 };
 
 var displayTime = function () {
@@ -21,18 +22,15 @@ var displayTime = function () {
 		timeRemaining += 10;
 		timer.innerHTML = "Time Spent: " + timeRemaining + "s";
 
-
 		if(stop){
 			clearInterval(getTime);
 
 			var wrapper = document.getElementById("wrapper");
-			wrapper.remove();
-
-			timer.remove();
 
 			document.body.appendChild(newTestWindow);
 			document.getElementById("finalScore").innerHTML = "Your took: " + timeRemaining + " milliseconds";
 			newTestWindow.style.display = "block";
+			
 		} else{
 			if(testPara.innerHTML == textArea.value){
 				stop = true;
