@@ -20,7 +20,7 @@ textarea {
 	letter-spacing: 2.5px;
 }
 
-#paraContainer, #textArea {
+#phraseContainer, #textArea {
 	width: 95%;
 	height: 20%;
 	margin: 2% 10px;
@@ -39,72 +39,39 @@ textarea {
 
 }
 
-#startWindow{
-	background: rgba(0,0,0,0.7);
-  	height: 100%;
-  	width: 100%;
-  	top: 0;
-  	left: 0;
-	position: absolute;
-	font-family: helvetica;
-	padding-top: 100px;
-}
-
-#newTestWindow{
+#newTestWindow, #block{
 	background: #CCC;
   	height: 100%;
   	width: 100%;
   	top: 0;
   	left: 0;
 	position: absolute;
-	font-family: helvetica;
-	padding-top: 100px;
 	overflow: hidden;
 	display: none;
 }
 
+#countdown{
+  	height: 100%;
+  	width: 100%;
+  	font-size: 192px;
+  	text-align: center;
+  	margin: 25% 0;
+}
+
 
 .modalBox {
-	margin: 0 auto;
-	width: 500px;
+	margin: 20% auto;
 	background: #fff;
 	text-align: center;
-	border: 2px solid #C0392B;
 	border-radius: 10px;
-	padding: 20px;
-	line-height: 1.5;
+	padding: 80px 40px;
 }
 
-.modalBox h1{
-	font-size: 35px;
-	text-align: center;
-	font-weight: 100;
-}
-
-.modalBox p {
-	font-size: 18px;
-	text-align: center;
-	font-weight: 100;
-	padding: 20px 0;
-}
-
-.modalBox button {
-	outline: none;
-	padding: 15px;
-	border-style: none;
-	cursor: pointer;
-	font-size: 18px;
-	border-radius: 5px;
+.modalBox .button {
+	padding: 25px;
+	border-radius: 10px;
 	background: #22A7F0;
 	border: 2px solid transparent;
 	color: #fff;
-	font-weight: 100;
-}
-
-.modalBox button:hover {
-	background: #fff;
-	border: 2px solid #22A7F0;
-	color: #22A7F0;
-	transition: 0.2s;
 }
 
