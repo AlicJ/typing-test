@@ -33,7 +33,7 @@ function initUsers() {
 
 function generatePhrase (){
 	// testPara.innerHTML = "Friends are flowers in the garden of life.";
-	currentPhrase = "F";
+	currentPhrase = "Friends are flowers in the garden of life.";
 	$("#testPhrase").html(currentPhrase);
 };
 
