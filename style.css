@@ -50,6 +50,10 @@ textarea {
 	display: none;
 }
 
+#block {
+	background: rgba(0, 0, 0, 0.6);
+}
+
 #countdown{
   	height: 100%;
   	width: 100%;
