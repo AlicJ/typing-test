@@ -57,7 +57,6 @@ function initUsers() {
 
 
 function generatePhrase() {
-	// testPara.innerHTML = "Friends are flowers in the garden of life.";
 	currentPhrase = PHRASES[Math.floor(Math.random() * 9)];
 	$("#testPhrase").html(currentPhrase);
 };
