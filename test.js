@@ -4,15 +4,15 @@ var TESTCASES = [];
 var USERS = [];
 var INTERVAL = 10;
 var PHRASES = [
-	"The squeakiest wheel always gets the grease.",
-	"A bird in the hand is worth two in the bush.",
-	"Do not count the chickens before they hatch.",
-	"The sharper the berry, the sweeter the wine.",
-	"A weed is no more than a flower in disguise.",
-	"We will cross the bridge when we come to it.",
-	"The grass is always green on the other side.",
-	"The stronger the wind the stronger the tree.",
-	"Do I look like a turnip from a turnip truck?"
+	"the world is a stage",
+	"buckle up for safety",
+	"nobody cares anymore",
+	"toss the ball around",
+	"join us on the patio",
+	"zero in on the facts",
+	"we park in driveways",
+	"you have my sympathy",
+	"typing is super easy"
 ]
 
 var userId = 0;
@@ -25,7 +25,6 @@ var timeCount = 0;
 var gameRunning = true;
 var blocked = false;
 var gameLoop;
-
 
 function initTestCases() {
 	for (var i = 0; i < KEYBOARD.length; i++) {
