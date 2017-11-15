@@ -93,7 +93,7 @@ function displayTime() {
 			$("#finalScore").html("Your took: " + totalTime + " milliseconds");
 			var wpm = currentPhrase.split(" ").length / totalTime * 1000 * 60;
 			var cpm = currentPhrase.length / totalTime * 1000 * 60;
-			$("#finalScore").append("<br/> Error Count: " + errorCount);
+			$("#finalScore").append("<br/> Error count: " + errorCount);
 			//$("#finalScore").append("<br/> wpm: " + wpm);
 			//$("#finalScore").append("<br/> cpm: " + cpm);
 
