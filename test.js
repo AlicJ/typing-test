@@ -4,21 +4,22 @@ var TESTCASES = [];
 var USERS = [];
 var INTERVAL = 10;
 var PHRASES = [
-	"The squeakiest wheel always gets the grease.",
-	"A bird in the hand is worth two in the bush.",
-	"Do not count the chickens before they hatch.",
-	"The sharper the berry, the sweeter the wine.",
-	"A weed is no more than a flower in disguise.",
-	"We will cross the bridge when we come to it.",
-	"The grass is always green on the other side.",
-	"The stronger the wind the stronger the tree.",
-	"Do I look like a turnip from a turnip truck?"
+	"You are a wonderful example",
+	"The assignment is due today",
+	"The store will close at ten",
+	"The laser printer is jammed",
+	"The library is closed today",
+	"This watch is too expensive",
+	"Get rid of that immediately",
+	"Relations are very strained",
+	"The union will go on strike"
+
 ]
 
 var userId = 0;
 var userCases = [];
 var errorCount = 0;
-var penalty = 0;
+var penalty = 3000;
 var currentPhrase = "";
 
 var timeCount = 0;
@@ -134,6 +135,7 @@ function pause() {
 
 
 function typeListener(event) {
+	//http://jsfiddle.net/zminic/8Lmay/
 	event.preventDefault();
 	console.log(event);
 	console.log(event.key, event.keyCode);
