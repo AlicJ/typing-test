@@ -4,16 +4,15 @@ var TESTCASES = [];
 var USERS = [];
 var INTERVAL = 10;
 var PHRASES = [
-	"You are a wonderful example",
-	"The assignment is due today",
-	"The store will close at ten",
-	"The laser printer is jammed",
-	"The library is closed today",
-	"This watch is too expensive",
-	"Get rid of that immediately",
-	"Relations are very strained",
-	"The union will go on strike"
-
+	"The world is a stage",
+	"Buckle up for safety",
+	"Nobody cares anymore",
+	"Toss the ball around",
+	"Join us on the patio",
+	"Zero in on the facts",
+	"We park in driveways",
+	"You have my sympathy",
+	"Typing is super easy"
 ]
 
 var userId = 0;
@@ -26,7 +25,6 @@ var timeCount = 0;
 var gameRunning = true;
 var blocked = false;
 var gameLoop;
-
 
 function initTestCases() {
 	for (var i = 0; i < KEYBOARD.length; i++) {
@@ -94,9 +92,10 @@ function displayTime() {
 			var totalTime = timeCount + errorCount * penalty;
 			$("#finalScore").html("Your took: " + totalTime + " milliseconds");
 			var wpm = currentPhrase.split(" ").length / totalTime * 1000 * 60;
-			var cpm = currentPhrase.length / totalTime * 1000 * 60
-			$("#finalScore").append("<br/> wpm: " + wpm);
-			$("#finalScore").append("<br/> cpm: " + cpm);
+			var cpm = currentPhrase.length / totalTime * 1000 * 60;
+			$("#finalScore").append("<br/> Error count: " + errorCount);
+			//$("#finalScore").append("<br/> wpm: " + wpm);
+			//$("#finalScore").append("<br/> cpm: " + cpm);
 
 			$("#newTestWindow").show();
 			//subtract 20ms per character?
