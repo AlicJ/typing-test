@@ -4,15 +4,15 @@ var TESTCASES = [];
 var USERS = [];
 var INTERVAL = 10;
 var PHRASES = [
-	"The world is a stage",
-	"Buckle up for safety",
-	"Nobody cares anymore",
-	"Toss the ball around",
-	"Join us on the patio",
-	"Zero in on the facts",
-	"We park in driveways",
-	"You have my sympathy",
-	"Typing is super easy"
+	"the world is a stage",
+	"buckle up for safety",
+	"nobody cares anymore",
+	"toss the ball around",
+	"join us on the patio",
+	"zero in on the facts",
+	"we park in driveways",
+	"you have my sympathy",
+	"typing is super easy"
 ]
 
 var userId = 0;
