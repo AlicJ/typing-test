@@ -188,10 +188,10 @@ function clearStatus() {
 	lastInput = "";
 }
 
-$(document).on("keydown", "#textArea", displayTime);
+$(document).on("keyup", "#textArea", displayTime);
 
 
-$(document).on("keydown", "#textArea", typeListener);
+$(document).on("keyup", "#textArea", typeListener);
 
 init();
 
