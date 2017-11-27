@@ -26,6 +26,8 @@ var gameRunning = true;
 var blocked = false;
 var gameLoop;
 
+var newPhrase = "";
+
 function initTestCases() {
 	for (var i = 0; i < KEYBOARD.length; i++) {
 		for (var j = 0; j < PENALTY.length; j++) {
@@ -86,8 +88,8 @@ function displayTime() {
 			if ($("#testPhrase").html() == textArea.value) {
 				gameRunning = false;
 			}
-
 		} else {
+			alert("IM TRIGGERED");
 			clearInterval(gameLoop);
 			var totalTime = timeCount + errorCount * penalty;
 			$("#finalScore").html("Your took: " + totalTime + " milliseconds");
@@ -106,7 +108,7 @@ function displayTime() {
 	$(document).off("keydown", "#textArea", displayTime);
 };
 
-function block(timeout) {
+function block(timeout, oldText="") {
 	blocked = true;
 	// $("#textArea").attr("disabled", "disabled");
 	$("#block").show();
@@ -121,6 +123,7 @@ function block(timeout) {
 		$("#block").hide();
 		// $("#textArea").removeAttr("disabled");
 		$("#textArea").focus();
+		$("#textArea").val(oldText);
 		blocked = false;
 		clearInterval(countdown);
 		// TODO need to consider time taken for keyboard to showup!
@@ -136,8 +139,6 @@ function pause() {
 function typeListener(event) {
 	//http://jsfiddle.net/zminic/8Lmay/
 	event.preventDefault();
-	console.log(event);
-	console.log(event.key, event.keyCode);
 
 	if (!gameRunning) {
 		return;
@@ -146,40 +147,40 @@ function typeListener(event) {
 		return;
 	}
 
-	if (event.key.length == "1") { // if pressed a valid character key
-		var textArea = $("#textArea").val();
-		var curPosition = textArea.length;
-		var input = event.key
-		var target = currentPhrase[curPosition];
-		if (!blocked) {
+	var textArea = $("#textArea").val();
+	var curPosition = textArea.length;
+	var input = event.target.value;
+	var target = newPhrase + currentPhrase[curPosition-1];
 
 
-			console.log(input, target)
-			console.log(event.keyCode)
-
-			if (input == target) {
-				$("#textArea").val(textArea + input);
-			} else {
-				errorCount += 1
-				if (penalty > 0) {
-					block(penalty) //TODO change this to dynamic
-				} else {
-					pause();
-				}
-			}
+	if (!blocked) {
+		if (input == target) {
+			$("#textArea").val(textArea);
+			newPhrase = target;
 		} else {
+			errorCount += 1
+			if (penalty > 0) {
+				block(penalty, target.substring(0,curPosition-1)); //TODO change this to dynamic
+			} else {
+				pause();
+			}
+		}
+	} else {
+		if(penalty == 0){
 			if (input == target) {
-				console.log(input)
 				blocked = false;
-				$("#textArea").val(textArea + input);
+				$("#textArea").val(textArea);
+				newPhrase = target;
 			} else {
 				errorCount += 1;
 			}
 		}
 	}
+
 }
 
 function clearStatus() {
+	alert("I GOT TRIGGERED");
 	errorCount = 0;
 	timeCount = 0;
 	gameRunning = true;
@@ -188,10 +189,10 @@ function clearStatus() {
 	lastInput = "";
 }
 
-$(document).on("change", "#textArea", displayTime);
+$(document).on("keydown", "#textArea", displayTime);
 
 
-$(document).on("change", "#textArea", typeListener);
+$(document).on("input", "#textArea", typeListener);
 
 init();
 
