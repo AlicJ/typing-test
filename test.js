@@ -89,7 +89,6 @@ function displayTime() {
 				gameRunning = false;
 			}
 		} else {
-			alert("IM TRIGGERED");
 			clearInterval(gameLoop);
 			var totalTime = timeCount + errorCount * penalty;
 			$("#finalScore").html("Your took: " + totalTime + " milliseconds");
@@ -180,7 +179,6 @@ function typeListener(event) {
 }
 
 function clearStatus() {
-	alert("I GOT TRIGGERED");
 	errorCount = 0;
 	timeCount = 0;
 	gameRunning = true;
