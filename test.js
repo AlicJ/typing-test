@@ -35,7 +35,7 @@ function initTestCases() {
 				id: i * 3 + j,
 				keyboard: KEYBOARD[i],
 				penalty: PENALTY[j]
-			})
+			});
 		}
 	}
 }
@@ -46,7 +46,7 @@ function initUsers() {
 			id: i,
 			testcases: []
 		});
-		for (var j = i; j < i + 5; j++) {
+		for (var j = i; j < i + 9; j++) {
 			if (j < TESTCASES.length) {
 				USERS[i]["testcases"].push(TESTCASES[j]);
 			} else {
@@ -151,7 +151,6 @@ function typeListener(event) {
 	var input = event.target.value;
 	var target = newPhrase + currentPhrase[curPosition-1];
 
-
 	if (!blocked) {
 		if (input == target) {
 			$("#textArea").val(textArea);
@@ -188,7 +187,6 @@ function clearStatus() {
 }
 
 $(document).on("keydown", "#textArea", displayTime);
-
 
 $(document).on("input", "#textArea", typeListener);
 
