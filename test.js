@@ -34,7 +34,8 @@ function initTestCases() {
 			TESTCASES.push({
 				id: i * 3 + j,
 				keyboard: KEYBOARD[i],
-				penalty: PENALTY[j]
+				penalty: PENALTY[j],
+				phrase: ""
 			});
 		}
 	}
@@ -48,9 +49,12 @@ function initUsers() {
 		});
 		for (var j = i; j < i + 9; j++) {
 			if (j < TESTCASES.length) {
-				USERS[i]["testcases"].push(TESTCASES[j]);
+				console.log(i, j)
+				USERS[i]["testcases"].push($.extend(true, {}, TESTCASES[j]));
+				USERS[i]["testcases"][j-i]["phrase"] = PHRASES[j];
 			} else {
-				USERS[i]["testcases"].push(TESTCASES[j - 9]);
+				USERS[i]["testcases"].push($.extend(true, {}, TESTCASES[j - 9]));
+				USERS[i]["testcases"][j-i]["phrase"] = PHRASES[j - 9];
 			}
 		}
 	}
