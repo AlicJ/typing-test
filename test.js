@@ -1,4 +1,4 @@
-var KEYBOARD = ["O", "S", "T"];
+var KEYBOARD = ["qwerty", "swype", "small"];
 var PENALTY = [0, 5, 10];
 var TESTCASES = [];
 var USERS = [];
@@ -14,19 +14,22 @@ var PHRASES = [
 	"you have my sympathy",
 	"typing is super easy"
 ]
+var TRIAL_REPEAT = 5
 
 var userId = 0;
 var userCases = [];
 var errorCount = 0;
-var penalty = 3000;
+var penalty;
 var currentPhrase = "";
+var currentTrialNum = 0;
+var currentRepeatTime = 0;
 
 var timeCount = 0;
 var gameRunning = true;
 var blocked = false;
 var gameLoop;
 
-var newPhrase = "";
+var lastCorrectInput = "";
 
 function initTestCases() {
 	for (var i = 0; i < KEYBOARD.length; i++) {
@@ -34,7 +37,7 @@ function initTestCases() {
 			TESTCASES.push({
 				id: i * 3 + j,
 				keyboard: KEYBOARD[i],
-				penalty: PENALTY[j],
+				penalty: PENALTY[(j + i) % 3],
 				phrase: ""
 			});
 		}
@@ -49,7 +52,6 @@ function initUsers() {
 		});
 		for (var j = i; j < i + 9; j++) {
 			if (j < TESTCASES.length) {
-				console.log(i, j)
 				USERS[i]["testcases"].push($.extend(true, {}, TESTCASES[j]));
 				USERS[i]["testcases"][j-i]["phrase"] = PHRASES[j];
 			} else {
@@ -60,17 +62,11 @@ function initUsers() {
 	}
 }
 
-
-function generatePhrase() {
-	currentPhrase = PHRASES[Math.floor(Math.random() * 9)];
-	$("#testPhrase").html(currentPhrase);
-};
-
 function getUserId() {
 	if (window.location.hash) {
 		userId = window.location.hash.replace('#', '');
-		userCases = USERS[userId].testcases;
 	}
+	userCases = USERS[userId].testcases;
 }
 
 function init() {
@@ -80,7 +76,6 @@ function init() {
 }
 
 function displayTime() {
-	console.log("displayTime")
 	gameLoop = setInterval(function() {
 
 		if (!blocked) {
@@ -126,7 +121,7 @@ function block(timeout, oldText="") {
 		$("#block").hide();
 		// $("#textArea").removeAttr("disabled");
 		$("#textArea").focus();
-		$("#textArea").val(oldText);
+		// $("#textArea").val(oldText);
 		blocked = false;
 		clearInterval(countdown);
 		// TODO need to consider time taken for keyboard to showup!
@@ -147,18 +142,19 @@ function typeListener(event) {
 		return;
 	}
 	if (penalty > 0 && blocked) {
+			$("#textArea").val(lastCorrectInput);
 		return;
 	}
 
 	var textArea = $("#textArea").val();
 	var curPosition = textArea.length;
 	var input = event.target.value;
-	var target = newPhrase + currentPhrase[curPosition-1];
+	var target = lastCorrectInput + currentPhrase[curPosition-1];
 
 	if (!blocked) {
 		if (input == target) {
 			$("#textArea").val(textArea);
-			newPhrase = target;
+			lastCorrectInput = target;
 		} else {
 			errorCount += 1
 			if (penalty > 0) {
@@ -172,13 +168,12 @@ function typeListener(event) {
 			if (input == target) {
 				blocked = false;
 				$("#textArea").val(textArea);
-				newPhrase = target;
+				lastCorrectInput = target;
 			} else {
 				errorCount += 1;
 			}
 		}
 	}
-
 }
 
 function clearStatus() {
@@ -187,17 +182,49 @@ function clearStatus() {
 	gameRunning = true;
 	blocked = false;
 	currentPhrase = "";
-	lastInput = "";
+	lastCorrectInput = "";
+	$("#textArea").val("");
+}
+
+function loadTrial() {
+	clearStatus();
+
+	var currentTrial = userCases[currentTrialNum];
+
+	currentPhrase = currentTrial["phrase"];
+	penalty = currentTrial["penalty"] * 1000;
+	$("#testPhrase").html(currentPhrase);
+}
+
+function nextTrial() {
+	currentTrialNum ++;
+	loadTrial();
+}
+
+function next(){
+	currentRepeatTime ++;
+	$("#newTestWindow").hide();
+	$(document).on("keydown", "#textArea", displayTime);
+	$("#textArea").focus();
+
+	if (currentRepeatTime < TRIAL_REPEAT) {
+		loadTrial();
+	}else{
+		currentRepeatTime = 0;
+		nextTrial();
+	}
 }
 
 $(document).on("keydown", "#textArea", displayTime);
 
 $(document).on("input", "#textArea", typeListener);
 
+$(document).on('click', '#newTestButton', function(event) {
+	next();
+});
+
+
+
 init();
 
-generatePhrase();
-
-newTestButton.addEventListener("click", function() {
-	window.location.reload();
-});
+loadTrial();
