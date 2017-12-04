@@ -39,7 +39,7 @@ textarea {
 
 }
 
-#newTestWindow, #block{
+#newTestWindow, #block, #finishWindow{
 	background: #CCC;
   	height: 100%;
   	width: 100%;

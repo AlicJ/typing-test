@@ -1,4 +1,4 @@
-var KEYBOARD = ["qwerty", "swype", "small"];
+var KEYBOARD = ["qwerty", "swype", "one"];
 var PENALTY = [0, 5, 10];
 var TESTCASES = [];
 var USERS = [];
@@ -14,7 +14,7 @@ var PHRASES = [
 	"you have my sympathy",
 	"typing is super easy"
 ]
-var TRIAL_REPEAT = 5
+var TRIAL_REPEAT = 5;
 
 var userId = 0;
 var userCases = [];
@@ -23,6 +23,7 @@ var penalty;
 var currentPhrase = "";
 var currentTrialNum = 0;
 var currentRepeatTime = 0;
+var currentTrial;
 
 var timeCount = 0;
 var gameRunning = true;
@@ -94,8 +95,10 @@ function displayTime() {
 			var wpm = currentPhrase.split(" ").length / totalTime * 1000 * 60;
 			var cpm = currentPhrase.length / totalTime * 1000 * 60;
 			$("#finalScore").append("<br/> Error count: " + errorCount);
-			//$("#finalScore").append("<br/> wpm: " + wpm);
-			//$("#finalScore").append("<br/> cpm: " + cpm);
+			$("#finalScore").append("<br/><br/> Keyboard: " + currentTrial.keyboard);
+			$("#finalScore").append("<br/> Penalty Rate: " + currentTrial.penalty);
+			$("#finalScore").append("<br/> wpm: " + wpm.toFixed(2));
+			$("#finalScore").append("<br/> cpm: " + cpm.toFixed(2));
 
 			$("#newTestWindow").show();
 			//subtract 20ms per character?
@@ -121,7 +124,7 @@ function block(timeout, oldText="") {
 		$("#block").hide();
 		// $("#textArea").removeAttr("disabled");
 		$("#textArea").focus();
-		// $("#textArea").val(oldText);
+		$("#textArea").val(oldText);
 		blocked = false;
 		clearInterval(countdown);
 		// TODO need to consider time taken for keyboard to showup!
@@ -158,7 +161,7 @@ function typeListener(event) {
 		} else {
 			errorCount += 1
 			if (penalty > 0) {
-				block(penalty, target.substring(0,curPosition-1)); //TODO change this to dynamic
+				block(penalty, target.substring(0,curPosition-1));
 			} else {
 				pause();
 			}
@@ -183,13 +186,16 @@ function clearStatus() {
 	blocked = false;
 	currentPhrase = "";
 	lastCorrectInput = "";
+	$("#timer_count").html("");
+	$("#testPhrase").html("")
 	$("#textArea").val("");
+	currentTrial = null;
 }
 
 function loadTrial() {
 	clearStatus();
 
-	var currentTrial = userCases[currentTrialNum];
+	currentTrial = userCases[currentTrialNum];
 
 	currentPhrase = currentTrial["phrase"];
 	penalty = currentTrial["penalty"] * 1000;
@@ -198,6 +204,12 @@ function loadTrial() {
 
 function nextTrial() {
 	currentTrialNum ++;
+
+	if (currentTrialNum >= 9) {
+		$("#newTestWindow").hide();
+		$("#finishWindow").show();
+		return;
+	}
 	loadTrial();
 }
 
