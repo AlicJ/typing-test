@@ -1,21 +1,21 @@
 <!DOCTYPE HTML>
 <html>
-	<head>
-		<title>Typing Test | Adapted from Vikas Lalwani</title>
-		<meta charset="UTF-8">
-		<meta name="viewport" content="user-scalable=no" />
-		<link rel="stylesheet" type="text/css" href="style.css">
-		<script src="jquery-3.2.1.min.js" type="text/javascript" charset="utf-8"></script>
-	</head>
+<head>
+	<title>Typing Test | Adapted from Vikas Lalwani</title>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="user-scalable=no" />
+	<link rel="stylesheet" type="text/css" href="style.css">
+	<script src="jquery-3.2.1.min.js" type="text/javascript" charset="utf-8"></script>
+</head>
 
-	<body>
-<!-- get phrases from https://www.universalclass.com/articles/self-help/keyboarding-practice-sentence-repetition.htm -->
+<body>
+	<!-- get phrases from https://www.universalclass.com/articles/self-help/keyboarding-practice-sentence-repetition.htm -->
 
-		<div id="timer">
-			Time Spent: <span id="timer_count">0</span>ms
-		</div>
+	<div id="timer">
+		Time Spent: <span id="timer_count">0</span>ms
+	</div>
 
-		<div id="wrapper">
+	<div id="wrapper">
 
 		<div id="phraseContainer">
 			<div id="testPhrase"></div>
@@ -23,11 +23,14 @@
 
 		​<textarea id="textArea" name="textarea" rows="5" cols="50" onPaste="return false" placeholder="Timer will only start after you begin typing." autofocus></textarea>
 
-		</div>
+		<div>Keyboard: <span id="keyboard"></span> </div>
+		<div>Penalty: <span id="penalty"></span> second(s)</div>
 
-		<div id="newTestWindow">
-			<div class="modalBox">
-				<h2>Trial Finished!</h1>
+	</div>
+
+	<div id="newTestWindow">
+		<div class="modalBox">
+			<h2>Trial Finished!</h1>
 				<p id="finalScore"></p>
 				<div id="newTestButton" class="button">Next Trial</div>
 			</div>
@@ -36,15 +39,15 @@
 		<div id="finishWindow">
 			<div class="modalBox">
 				<h2>Congratulations, you have finished the study</h1>
-				<p id="finalScore"></p>
-				<!-- <div id="newTestButton" class="button">Next Trial</div> -->
+					<p id="finalScore"></p>
+					<!-- <div id="newTestButton" class="button">Next Trial</div> -->
+				</div>
 			</div>
-		</div>
 
-		<div id="block">
-			<div id="countdown"></div>
-		</div>
+			<div id="block">
+				<div id="countdown"></div>
+			</div>
 
-	<script type="text/javascript" src="test.js"></script>
-	</body>
-<html>
+			<script type="text/javascript" src="test.js"></script>
+		</body>
+		<html>

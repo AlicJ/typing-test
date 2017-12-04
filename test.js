@@ -1,4 +1,4 @@
-var KEYBOARD = ["qwerty", "swype", "one"];
+var KEYBOARD = ["QWERTY", "Swype", "One-handed QWERTY"];
 var PENALTY = [0, 5, 10];
 var TESTCASES = [];
 var USERS = [];
@@ -202,6 +202,8 @@ function loadTrial() {
 	currentPhrase = currentTrial["phrase"];
 	penalty = currentTrial["penalty"] * 1000;
 	$("#testPhrase").html(currentPhrase);
+	$("#keyboard").html(currentTrial["keyboard"]);
+	$("#penalty").html(currentTrial["penalty"]);
 }
 
 function nextTrial() {
