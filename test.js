@@ -77,8 +77,9 @@ function init() {
 }
 
 function displayTime() {
+	console.log("display")
 	gameLoop = setInterval(function() {
-
+		console.log("game loop running")
 		if (!blocked) {
 			timeCount += INTERVAL;
 			$("#timer_count").html(timeCount);
@@ -106,8 +107,52 @@ function displayTime() {
 	}, INTERVAL);
 
 	// only call display time once
-	$(document).off("keydown", "#textArea", displayTime);
+	$(document).off("input", "#textArea", displayTime);
 };
+
+function typeListener(event) {
+	console.log("type")
+	//http://jsfiddle.net/zminic/8Lmay/
+	event.preventDefault();
+
+	if (!gameRunning) {
+		return;
+	}
+	if (penalty > 0 && blocked) {
+			$("#textArea").val(lastCorrectInput);
+		return;
+	}
+
+	var textArea = $("#textArea").val();
+	var curPosition = textArea.length;
+	var input = event.target.value;
+	// var target = lastCorrectInput + currentPhrase[curPosition-1];
+	var target = currentPhrase.slice(0, curPosition)
+
+	if (!blocked) {
+		if (input == target) {
+			$("#textArea").val(textArea);
+			lastCorrectInput = target;
+		} else {
+			errorCount += 1
+			if (penalty > 0) {
+				block(penalty, target.substring(0,curPosition-1));
+			} else {
+				pause();
+			}
+		}
+	} else {
+		if(penalty == 0){
+			if (input == target) {
+				blocked = false;
+				$("#textArea").val(textArea);
+				lastCorrectInput = target;
+			} else {
+				errorCount += 1;
+			}
+		}
+	}
+}
 
 function block(timeout, oldText="") {
 	blocked = true;
@@ -134,49 +179,6 @@ function block(timeout, oldText="") {
 
 function pause() {
 	blocked = true;
-}
-
-
-function typeListener(event) {
-	//http://jsfiddle.net/zminic/8Lmay/
-	event.preventDefault();
-
-	if (!gameRunning) {
-		return;
-	}
-	if (penalty > 0 && blocked) {
-			$("#textArea").val(lastCorrectInput);
-		return;
-	}
-
-	var textArea = $("#textArea").val();
-	var curPosition = textArea.length;
-	var input = event.target.value;
-	var target = lastCorrectInput + currentPhrase[curPosition-1];
-
-	if (!blocked) {
-		if (input == target) {
-			$("#textArea").val(textArea);
-			lastCorrectInput = target;
-		} else {
-			errorCount += 1
-			if (penalty > 0) {
-				block(penalty, target.substring(0,curPosition-1));
-			} else {
-				pause();
-			}
-		}
-	} else {
-		if(penalty == 0){
-			if (input == target) {
-				blocked = false;
-				$("#textArea").val(textArea);
-				lastCorrectInput = target;
-			} else {
-				errorCount += 1;
-			}
-		}
-	}
 }
 
 function clearStatus() {
@@ -216,7 +218,7 @@ function nextTrial() {
 function next(){
 	currentRepeatTime ++;
 	$("#newTestWindow").hide();
-	$(document).on("keydown", "#textArea", displayTime);
+	$(document).on("input", "#textArea", displayTime);
 	$("#textArea").focus();
 
 	if (currentRepeatTime < TRIAL_REPEAT) {
@@ -227,7 +229,7 @@ function next(){
 	}
 }
 
-$(document).on("keydown", "#textArea", displayTime);
+$(document).on("input", "#textArea", displayTime);
 
 $(document).on("input", "#textArea", typeListener);
 
